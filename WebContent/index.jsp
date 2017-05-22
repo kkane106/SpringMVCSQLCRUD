@@ -29,13 +29,15 @@
 
 <h2>Keep track of upcoming concerts</h2>
 
+	<div id="left">
 		<h3>Look up an artist:</h3>
 	<form action="GetConcertData.do" method="get">
 		<br> <input type="text" name="performer" /> <input type="submit"
 			name="LookUp" value="Look up" />
 	</form>
+	</div>
 
-
+	<div id="middle">
 	<h3>Get all of your shows:</h3>
 	<form action="GetConcertData.do" method="get">
 		<input type="submit" name="GetConcertList" value="Submit" />
@@ -45,6 +47,7 @@
 	<form action="getAllShows.do" method="get">
 		<input type="submit" name="GetAll" value="Submit" />
 	</form>
+	</div>
 	
 	<h3>Add your own concert:</h3>
 	<form action="GetConcertData.do" method="get">

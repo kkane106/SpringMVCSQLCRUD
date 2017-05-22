@@ -39,17 +39,15 @@ You do not have any saved concerts!
 			<th>Artist</th>
 			<th>Venue</th>
 			<th>Date</th>
-			<th></th>
+			<th>Band</th>
 		</tr>
 
 		<c:forEach var="c" items="${sessionScope.concertList}">
 			<tr>
-				<td>${c.performer}
-				</td>
+				<td>${c.performer}</td>
 				<td>${c.venue}</td>
-				<td>${c.date}
-				</td>
-				<td><img src=${c.imageUrl } alt="band photo" /></td>
+				<td>${c.date}</td>
+				<td><img src="${c.imageUrl}" alt="band photo" /></td>
 			</tr>
 		</c:forEach>
 	</table>

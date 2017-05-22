@@ -18,7 +18,7 @@ import com.skilldistillery.data.Concert;
 import com.skilldistillery.data.ConcertDAO;
 
 @Controller
-@SessionAttributes({ "concertList", "concert" })
+@SessionAttributes({ "concertList" })
 public class ConcertController {
 
 	@Autowired
@@ -32,13 +32,15 @@ public class ConcertController {
 
 	@ModelAttribute("userConcertList")
 	@RequestMapping(path = "GetConcertData.do", params = "AddYourEvent")
-	public ModelAndView addEvent(@RequestParam("performer") String performer, @RequestParam("venue") String venue,
-			@RequestParam("date") String date, @ModelAttribute("concertList") List<Concert> userConcertList,
+	public ModelAndView addEvent(
+			Concert c,
+			@ModelAttribute("concertList") List<Concert> userConcertList,
 			HttpSession session) {
 		System.out.println("in addEvent");
 		ModelAndView mv = new ModelAndView();
-		Concert c = new Concert(performer, venue, date);
+		c = dao.getConcert(c);
 		userConcertList.add(c);
+		dao.persistConcertList(userConcertList);
 		mv.addObject("concert", c);
 		mv.addObject("userConcertList", userConcertList);
 		mv.setViewName("yourConcertsPage.jsp");
@@ -56,17 +58,13 @@ public class ConcertController {
 	}
 
 	@RequestMapping(path = "GetConcertData.do", params = "LookUp")
-	public ModelAndView getByPerformer(@RequestParam("performer") String performer, HttpSession session) {
+	public ModelAndView getByPerformer(
+			@RequestParam("performer") String performer,
+			HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		System.out.println("in get By Performer");
-		Concert c = new Concert();
-		c = dao.getConcertByPerformer(performer);
+		Concert c = dao.getConcertByPerformer(performer);
 		mv.addObject("concert", c);
-		if (c != null) {
-			session.setAttribute("concert", c);
-			Concert savedconcert = (Concert) session.getAttribute("concert");
-			System.out.println("Saved: " + savedconcert);
-		}
 		mv.setViewName("concertEvent.jsp");
 		return mv;
 	}
@@ -80,22 +78,27 @@ public class ConcertController {
 	}
 
 	@ModelAttribute("userConcertList")
-	@RequestMapping(path = "GetConcertData.do", params = "addThisEvent")
-	public ModelAndView addCurrentConcert(@ModelAttribute("concertList") List<Concert> userConcertList,
+	@RequestMapping(path = "addConcertToList.do", params = "addThisEvent")
+	public ModelAndView addCurrentConcert(
+			@ModelAttribute("concertList") List<Concert> userConcertList,
+			Concert c,
 			HttpSession session) {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("concertEvent.jsp");
-		Concert c = (Concert) (session.getAttribute("concert"));
+		mv.setViewName("yourConcertsPage.jsp");
 		System.out.println("Adding current concert: " + c);
+		c = dao.getConcert(c);
 		userConcertList.add(c);
+		dao.persistConcertList(userConcertList);
 		mv.addObject("concertList", userConcertList);
-		mv.addObject(c);
+		mv.addObject("concert",c);
 		return mv;
 	}
 
 	@RequestMapping(path = "removeConcert.do", params = "performer")
-	public ModelAndView removeConcert(@ModelAttribute("concertList") List<Concert> userConcertList,
-			@RequestParam("performer") String performer) {
+	public ModelAndView removeConcert(
+			@ModelAttribute("concertList") List<Concert> userConcertList,
+			@RequestParam("performer") String performer
+			) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("yourConcertsPage.jsp");
 		System.out.println("in delete concert");
@@ -103,6 +106,7 @@ public class ConcertController {
 		System.out.println(dao.getConcertByPerformer(performer));
 		Concert c = dao.getConcertByPerformer(performer);
 		userConcertList.remove(c);
+		dao.persistConcertList(userConcertList);
 		mv.addObject("userConcertList", userConcertList);
 		return mv;
 	}

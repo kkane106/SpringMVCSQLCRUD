@@ -87,4 +87,16 @@ public class ConcertDaoListImpl implements ConcertDAO {
 	        }
 	    }
 
+
+	@Override
+	public Concert getConcert(Concert concert) {
+		for (Concert c : concerts) {
+			if (c.equals(concert)) {
+				concert = c;
+				break;
+			}
+		}
+		return concert;
+	}
+
 }

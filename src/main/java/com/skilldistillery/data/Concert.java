@@ -81,6 +81,43 @@ public class Concert {
 	public void setFormattedDate(LocalDate formattedDate) {
 		this.formattedDate = formattedDate;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
+		result = prime * result + ((performer == null) ? 0 : performer.hashCode());
+		result = prime * result + ((venue == null) ? 0 : venue.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Concert other = (Concert) obj;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
+		if (performer == null) {
+			if (other.performer != null)
+				return false;
+		} else if (!performer.equals(other.performer))
+			return false;
+		if (venue == null) {
+			if (other.venue != null)
+				return false;
+		} else if (!venue.equals(other.venue))
+			return false;
+		return true;
+	}
 	
 	
 	
