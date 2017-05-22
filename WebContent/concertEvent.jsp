@@ -8,19 +8,17 @@
 <html>
 <head>
 <link rel="stylesheet" href="master.css">
-<link href="https://fonts.googleapis.com/css?family=Karla|PT+Sans" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Karla|PT+Sans"
+	rel="stylesheet">
 <title>Your Concert Events</title>
 </head>
 
 <nav>
 <ul>
-<li><a href="index.jsp">Home</a></li>
-<li><a href="yourConcertsPage.jsp">Your shows</a></li>
-<li><a href="ConcertsPage.jsp">All shows</a></li>
-<li><form action="GetConcertData.do" method="get">
-		Look up artist: <input type="text" name="performer" /> <input type="submit" name="LookUp"
-			value="Search" />
-	</form></li>
+	<li><a href="index.jsp">Home</a></li>
+	<li><a href="yourConcertsPage.jsp">Your shows</a></li>
+	<li><a href="ConcertsPage.jsp">All shows</a></li>
+	<li><a href="getAllShows.do">All shows</a></li>
 </ul>
 </nav>
 
@@ -48,6 +46,5 @@
 
 	<h3>Return to index</h3>
 	<a href="index.jsp">Return to index</a>
-	<br /> if show has been added, state.add = true, then print: Show has
-	been added!
+
 </body>

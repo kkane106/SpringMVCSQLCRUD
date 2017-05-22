@@ -1,10 +1,13 @@
 package com.skilldistillery.data;
 
+import java.time.LocalDate;
+
 public class Concert {
 	private String performer;
 	private String venue;
 	private String date;
 	private String imageUrl;
+	private LocalDate formattedDate;
 	
 	public Concert(String performer, String venue, String date, String imageUrl) {
 		super();
@@ -12,6 +15,15 @@ public class Concert {
 		this.venue = venue;
 		this.date = date;
 		this.imageUrl = imageUrl;
+	}
+	
+	public Concert(String performer, String venue, String date, String imageUrl, LocalDate formattedDate) {
+		super();
+		this.performer = performer;
+		this.venue = venue;
+		this.date = date;
+		this.imageUrl = imageUrl;
+		this.setFormattedDate(formattedDate);
 	}
 	
 	public Concert(String performer, String venue, String date) {
@@ -60,6 +72,14 @@ public class Concert {
 	@Override
 	public String toString() {
 		return "Concert [performer=" + performer + ", venue=" + venue + ", date=" + date + "]";
+	}
+
+	public LocalDate getFormattedDate() {
+		return formattedDate;
+	}
+
+	public void setFormattedDate(LocalDate formattedDate) {
+		this.formattedDate = formattedDate;
 	}
 	
 	

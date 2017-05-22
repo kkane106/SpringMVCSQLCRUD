@@ -8,60 +8,62 @@ img {
 	font-family: 'PT Sans', sans-serif;
 }
 
-
 nav {
 	display: block;
 }
 
 nav ul {
 	list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: rgb(124, 85, 214);
-   	color: white;
-    
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: rgb(124, 85, 214);
+	color: white;
 	font-size: 20px;
-	}
+}
 
 nav li {
 	float: left;
-    padding: 18px 20px;
+	padding: 18px 20px;
 }
 
-nav ul li:last-child{
-	float:right;
+nav ul li:last-child {
+	float: right;
 }
 
 nav li a {
 	display: block;
-    color: white;
-    text-align: center;
-    text-decoration: none;
+	color: white;
+	text-align: center;
+	text-decoration: none;
 }
-	
 
 nav ul li:hover {
-    background-color: rgb(123, 209, 193);
+	background-color: rgb(123, 209, 193);
 }
 
 table {
 	border-collapse: collapse;
-	width: 100%;
+	table-layout: fixed;
+	width: 60%;
+	background-color: rgb(241, 239, 244);
+	margin-left:auto; 
+    margin-right:auto;
 }
+
 table, th, td {
-    border: 1px solid black;
+	border: 1px solid black;
 }
 
 table th {
-	height:50px;
+	height: 30px;
 	background-color: rgb(177, 226, 239);
-	font-size: 20px;
+	font-size: 16px;
 	font-weight: bold;
 }
 
 table img {
 	display: block;
-    margin: auto;
-    width: 40%;
+	margin: auto;
+	width: 40%;
 }

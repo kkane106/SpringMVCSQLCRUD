@@ -13,22 +13,23 @@
 <link rel="stylesheet" href="master.css">
 </head>
 
+
+
+<body>
+
 <nav>
 <ul>
 	<li><a href="index.jsp">Home</a></li>
 	<li><a href="yourConcertsPage.jsp">Your shows</a></li>
-	<li><form action="getAllShows.do">
-			<a href="ConcertsPage.jsp">All shows</a>
-		</form></li>
-	<li><form action="GetConcertData.do" method="get">
+		<li><a href="getAllShows.do">All shows</a></li>
+		<li><form action="GetConcertData.do" method="get">
 			Look up artist: <input type="text" name="performer" /> <input
 				type="submit" name="LookUp" value="Search" />
 		</form></li>
 </ul>
 </nav>
 
-<h1>Your saved concerts</h1>
-<body>
+<h2>Your saved concerts</h2>
 	<c:if test="${sessionScope.concertList} != null">
 You do not have any saved concerts!
 </c:if>
