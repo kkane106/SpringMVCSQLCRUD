@@ -33,10 +33,12 @@
 
 	<img src="${concert.imageUrl}" alt="performer photo" />
 	<br> Add this show to your concert list:
-	<form action="addConcertToList.do" method="get">
+	<form action="addConcertToList.do" method="post">
+		<input type="hidden" name="id" value="${concert.id}">
 		<input type="hidden" name="performer" value="${concert.performer}">
 		<input type="hidden" name="venue" value="${concert.venue}">
 		<input type="hidden" name="date" value="${concert.date}">
+		<input type="hidden" name="imageUrl" value="${concert.imageUrl}">
 		<input type="submit" name="addThisEvent" value="Add Event" />
 	</form>
 	<br>

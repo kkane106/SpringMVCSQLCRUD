@@ -20,6 +20,7 @@
 	<li><a href="index.jsp">Home</a></li>
 	<li><a href="yourConcertsPage.jsp">Your shows</a></li>
 	<li><a href="getAllShows.do">All shows</a></li>
+	<li><a href="createUser.do">Log in/Sign up</a></li>
 	<li><form action="GetConcertData.do" method="get">
 			Look up artist: <input type="text" name="performer" /> <input
 				type="submit" name="LookUp" value="Search" />
@@ -50,11 +51,11 @@
 	</div>
 	
 	<h3>Add your own concert:</h3>
-	<form action="GetConcertData.do" method="get">
-		Artist: <input type="text" name="performer" /><br> Venue: <input
-			type="text" name="venue" /><br> Date: <input type="text"
-			name="date" /><br> <input type="submit" name="AddYourEvent"
-			value="Add Event" />
+	<form action="createConcert.do" method="post">
+		Artist: <input type="text" name="performer" /><br> 
+		Venue: <input type="text" name="venue" /><br> 
+		Date: <input type="text" name="date" /><br> 
+		<input type="submit" name="AddYourEvent" value="Add Event" />
 	</form>
 
 </body>

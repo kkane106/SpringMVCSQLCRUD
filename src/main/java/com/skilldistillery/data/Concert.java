@@ -1,14 +1,59 @@
 package com.skilldistillery.data;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Concert {
+	private int id;
 	private String performer;
 	private String venue;
 	private String date;
 	private String imageUrl;
 	private LocalDate formattedDate;
+	private List<Performer> performerList;
 	
+	
+	public Concert(int id, String performer, String venue, String date, String imageUrl) {
+		super();
+		this.id = id;
+		this.performer = performer;
+		this.venue = venue;
+		this.date = date;
+		this.imageUrl = imageUrl;
+	}
+
+	public List<Performer> getPerformerList() {
+		return performerList;
+	}
+
+	public void setPerformerlist(List<Performer> performerlist) {
+		this.performerList = performerlist;
+	}
+	
+	public void addToPerformerList(Performer performer) {
+		performerList.add(performer);
+	}
+
+	public Concert(int id, String performer, String venue, String date) {
+		super();
+		this.id = id;
+		this.performer = performer;
+		this.venue = venue;
+		this.date = date;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setPerformerList(List<Performer> performerList) {
+		this.performerList = performerList;
+	}
+
 	public Concert(String performer, String venue, String date, String imageUrl) {
 		super();
 		this.performer = performer;
@@ -71,7 +116,8 @@ public class Concert {
 
 	@Override
 	public String toString() {
-		return "Concert [performer=" + performer + ", venue=" + venue + ", date=" + date + "]";
+		return "Concert [id=" + id + ", performer=" + performer + ", venue=" + venue + ", date=" + date + ", imageUrl="
+				+ imageUrl + "]";
 	}
 
 	public LocalDate getFormattedDate() {

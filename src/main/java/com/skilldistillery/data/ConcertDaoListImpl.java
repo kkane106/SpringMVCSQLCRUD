@@ -62,6 +62,7 @@ public class ConcertDaoListImpl implements ConcertDAO {
 	@Override
 	public void addConcertToList(Concert concert) {
 		concerts.add(c);
+//		return 0;
 	}
 	
 	@Override
@@ -97,6 +98,27 @@ public class ConcertDaoListImpl implements ConcertDAO {
 			}
 		}
 		return concert;
+	}
+
+
+	@Override
+	public void addConcertToUserList(Concert concert) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void createUser(User user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public List<Concert> getUserConcertList(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

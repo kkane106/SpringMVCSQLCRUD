@@ -29,10 +29,16 @@
 </ul>
 </nav>
 
+<%-- <c:if test="${sessionScope.user} != null"> --%>
+<h1>Welcome, ${sessionScope.user.fname} ${sessionScope.user.lname}</h1>
+<%-- </c:if> --%>
+
+<%-- <c:if test="${sessionScope.concertList}==null"> --%>
+<%-- <h4>You do not have any saved concerts!</h4>
+</c:if> --%>
+
+<%-- <c:if test="${sessionScope.concertList} s!= null"> --%>
 <h2>Your saved concerts</h2>
-	<c:if test="${sessionScope.concertList} != null">
-You do not have any saved concerts!
-</c:if>
 
 	<table>
 		<tr>
@@ -47,26 +53,22 @@ You do not have any saved concerts!
 				<td>${c.performer}</td>
 				<td>${c.venue}</td>
 				<td>${c.date}</td>
-				<td><img src="${c.imageUrl}" alt="band photo" /></td>
+				<td><img src="${c.imageUrl}" alt="performer photo" /></td>
 			</tr>
 		</c:forEach>
 	</table>
 
 	<h3>Remove a show</h3>
-	<form action="removeConcert.do" method="get">
+	<form action="removeConcert.do" method="post">
 		<select name="performer">
 			<c:forEach var="c" items="${sessionScope.concertList}">
 				<option>${c.performer}</option>
 			</c:forEach>
 		</select> <input type="submit" value="submit" />
 	</form>
+<%-- 	</c:if> --%>
 	<br>
 
-	<h3>Save concerts to a file:</h3>
-	<form action="saveConcerts.do" method="get">
-		<input type="submit" value="Save" />
-	</form>
-	<br>
 
 	<h3>Return to index</h3>
 	<a href="index.jsp">Return to index</a>

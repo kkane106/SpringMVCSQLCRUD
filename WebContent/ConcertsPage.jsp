@@ -50,13 +50,16 @@
 				</form>
 				</td>
 				<td><img src="${c.imageUrl}" alt="band photo" /></td>
-				<td>
-					<form action="addConcertToList.do">
+				<td style="text-align: center" >
+				<!-- <a style="text-decoration: none;" href="addConcertToList.do">Add</a> -->
+					<form action="addConcertToList.do" method="post">
+						<input type="hidden" name="id" value="${c.id}">
 						<input type="hidden" name="performer" value="${c.performer}">
-						<input type="hidden" name="venue" value="${c.venue}"> <input
-							type="hidden" name="date" value="${c.date}"> <input
-							type="submit" name="addThisEvent" value="Add Event">
-					</form>
+						<input type="hidden" name="venue" value="${c.venue}"> 
+						<input type="hidden" name="date" value="${c.date}"> 
+						<input type="hidden" name="imageUrl" value="${c.imageUrl}">
+						<input type="submit" name="addThisEvent" value="Add Event">
+					</form> 
 				</td>
 			</tr>
 		</c:forEach>
