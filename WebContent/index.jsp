@@ -19,8 +19,8 @@
 <ul>
 	<li><a href="index.jsp">Home</a></li>
 	<li><a href="yourConcertsPage.jsp">Your shows</a></li>
-	<li><a href="getAllShows.do">All shows</a></li>
-	<li><a href="createUser.do">Log in/Sign up</a></li>
+	<li><a href="getAllShows.do" method="get">All shows</a></li>
+	<li><a href="createUser.do">Sign in</a></li>
 	<li><form action="GetConcertData.do" method="get">
 			Look up artist: <input type="text" name="performer" /> <input
 				type="submit" name="LookUp" value="Search" />

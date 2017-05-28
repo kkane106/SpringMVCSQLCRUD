@@ -10,9 +10,9 @@ import java.util.List;
 
 public class ConcertDaoDbImpl implements ConcertDAO {
 
-	String url = "jdbc:mysql://localhost:3306/concerteventdb";
-	String user = "concertgoer";
-	String pw = "Chowchow21";
+	private String url = "jdbc:mysql://localhost:3306/concerteventdb";
+	private String user = "concertgoer";
+	private String pw = "Chowchow21";
 
 	private List<Concert> userConcertList = new ArrayList<>();
 
@@ -165,36 +165,14 @@ public class ConcertDaoDbImpl implements ConcertDAO {
 			stmt2.setString(2, concert.getDate());
 			stmt2.executeUpdate();
 			
-			conn.prepareStatement(setIdSql2).executeQuery();
+			conn.prepareStatement(setIdSql2).executeUpdate();
 			conn.prepareStatement(setIdSql3).executeUpdate();
 			
 			conn.commit();
-			System.out.println("success!");
+			System.out.println("success: concert added!");
 			
-//			ResultSet keys = stmt2.getGeneratedKeys();
-//			if (keys.next()) {
-//				newId = keys.getInt(1);
-//			}
-//			return newId;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-//		return 0;
 	}
-
-	@Override
-	public void createUser(User u) {
-		try {
-			Connection conn = DriverManager.getConnection(url, user, pw);
-			String sql = "INSERT into user(username,password) values(?,?)";
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(1, u.getUsername());
-			stmt.setString(2, u.getPassword());
-			stmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-	}
-
 }

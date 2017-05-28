@@ -6,13 +6,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="master.css">
+<link href="https://fonts.googleapis.com/css?family=Karla|PT+Sans"
+	rel="stylesheet">
 <title>Login</title>
 </head>
 <body>
 	<form:form action="register.do" method="POST" modelAttribute="user">
-		<form:label path="email">Email:</form:label>
-		<form:input path="email" />
-		<form:errors path="email" />
+		<form:label path="username">Username:</form:label>
+		<form:input path="username" />
+		<form:errors path="username" />
 		<br />
 		<form:label path="password">Password:</form:label>
 		<form:input path="password" />

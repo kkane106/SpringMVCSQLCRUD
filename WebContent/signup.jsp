@@ -3,12 +3,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
-<!-- TODO: Add the @taglib for form -->
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="master.css">
+<link href="https://fonts.googleapis.com/css?family=Karla|PT+Sans"
+	rel="stylesheet">
 <title>Sign up</title>
 </head>
 <body>
@@ -22,9 +24,9 @@
 		<form:input path="lname" />
 		<form:errors path="lname" />
 		<br />
-		<form:label path="userName">Username:</form:label>
-		<form:input path="userName" />
-		<form:errors path="userName" />
+		<form:label path="username">Username:</form:label>
+		<form:input path="username" />
+		<form:errors path="username" />
 		<br />
 		<form:label path="password">Password:</form:label>
 		<form:input path="password" />

@@ -9,6 +9,5 @@ public interface ConcertDAO {
 	List<Concert> getAllConcerts();
 	public void persistConcertList(List<Concert> userConcertList);
 	void addConcertToList(Concert concert);
-	void createUser(User user);
 	public List<Concert> getUserConcertList(int id);
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.skilldistillery.data.AuthenticationDAO;
 import com.skilldistillery.data.Concert;
 import com.skilldistillery.data.ConcertDAO;
 import com.skilldistillery.data.User;
@@ -25,6 +26,7 @@ public class ConcertController {
 
 	@Autowired
 	private ConcertDAO dao;
+	private AuthenticationDAO authDao;
 
 	@ModelAttribute("user")
 	public User newUser() {
@@ -62,20 +64,6 @@ public class ConcertController {
 		return mv;
 	}
 
-	@RequestMapping(path = "createUser.do", method = RequestMethod.GET)
-	public ModelAndView goToCreateUser() {
-		String viewName = "signup.jsp";
-		ModelAndView mv = new ModelAndView(viewName);
-		return mv;
-	}
-
-	@RequestMapping(path = "createUser.do", method = RequestMethod.POST)
-	public ModelAndView createUser(@ModelAttribute User user) {
-		String viewName = "yourConcertsPage.jsp";
-		ModelAndView mv = new ModelAndView(viewName);
-		dao.createUser(user);
-		return mv;
-	}
 
 	@RequestMapping(path = "getAllShows.do")
 	public String showAllConcerts(Model model) {
