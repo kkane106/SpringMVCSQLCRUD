@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 
@@ -18,9 +20,14 @@
 <nav>
 <ul>
 	<li><a href="index.jsp">Home</a></li>
-	<li><a href="yourConcertsPage.jsp">Your shows</a></li>
+	<li><a href="getYourShows.do">Your shows</a></li>
 	<li><a href="getAllShows.do" method="get">All shows</a></li>
-	<li><a href="createUser.do">Sign in</a></li>
+	<c:if test="${sessionScope.user.username == null }">
+	<li><a href="loginForm.do">Sign in</a></li>
+	</c:if>
+	<c:if test="${sessionScope.user.username != null }">
+	<li><a href="logout.do">Logout</a></li>
+	</c:if>
 	<li><form action="GetConcertData.do" method="get">
 			Look up artist: <input type="text" name="performer" /> <input
 				type="submit" name="LookUp" value="Search" />
@@ -29,6 +36,8 @@
 </nav>
 
 <h2>Keep track of upcoming concerts</h2>
+
+<div id="parent">
 
 	<div id="left">
 		<h3>Look up an artist:</h3>
@@ -40,7 +49,7 @@
 
 	<div id="middle">
 	<h3>Get all of your shows:</h3>
-	<form action="GetConcertData.do" method="get">
+	<form action="getYourShows.do" method="GET">
 		<input type="submit" name="GetConcertList" value="Submit" />
 	</form>
 
@@ -50,13 +59,15 @@
 	</form>
 	</div>
 	
+	<div id="right">
 	<h3>Add your own concert:</h3>
 	<form action="createConcert.do" method="post">
 		Artist: <input type="text" name="performer" /><br> 
 		Venue: <input type="text" name="venue" /><br> 
-		Date: <input type="text" name="date" /><br> 
+		Date:  <input type="text" name="date" /><br> 
 		<input type="submit" name="AddYourEvent" value="Add Event" />
 	</form>
-
+	</div>
+	</div>
 </body>
 </html>

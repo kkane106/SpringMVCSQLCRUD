@@ -14,17 +14,23 @@
 </head>
 
 <body>
-	<nav>
-	<ul>
-		<li><a href="index.jsp">Home</a></li>
-		<li><a href="yourConcertsPage.jsp">Your shows</a></li>
-		<li><a href="getAllShows.do">All shows</a></li>
-		<li><form action="GetConcertData.do" method="get">
-				Look up artist: <input type="text" name="performer" /> <input
-					type="submit" name="LookUp" value="Search" />
-			</form></li>
-	</ul>
-	</nav>
+<nav>
+<ul>
+	<li><a href="index.jsp">Home</a></li>
+	<li><a href="getYourShows.do">Your shows</a></li>
+	<li><a href="getAllShows.do" method="get">All shows</a></li>
+	<c:if test="${sessionScope.user.username == null }">
+	<li><a href="loginForm.do">Sign in</a></li>
+	</c:if>
+	<c:if test="${sessionScope.user.username != null }">
+	<li><a href="logout.do">Logout</a></li>
+	</c:if>
+	<li><form action="GetConcertData.do" method="get">
+			Look up artist: <input type="text" name="performer" /> <input
+				type="submit" name="LookUp" value="Search" />
+		</form></li>
+</ul>
+</nav>
 
 	<h2>Upcoming Shows:</h2>
 
@@ -34,7 +40,9 @@
 			<th>Venue</th>
 			<th>Date</th>
 			<th>Band</th>
+			<c:if test="${sessionScope.user.username != null }">
 			<th></th>
+			</c:if>
 		</tr>
 
 		<c:forEach var="c" items="${concerts}">
@@ -50,17 +58,15 @@
 				</form>
 				</td>
 				<td><img src="${c.imageUrl}" alt="band photo" /></td>
+				<c:if test="${sessionScope.user.username != null }">
 				<td style="text-align: center" >
 				<!-- <a style="text-decoration: none;" href="addConcertToList.do">Add</a> -->
 					<form action="addConcertToList.do" method="post">
-						<input type="hidden" name="id" value="${c.id}">
-						<input type="hidden" name="performer" value="${c.performer}">
-						<input type="hidden" name="venue" value="${c.venue}"> 
-						<input type="hidden" name="date" value="${c.date}"> 
-						<input type="hidden" name="imageUrl" value="${c.imageUrl}">
+						<input type="hidden" name="concertId" value="${c.id}">
 						<input type="submit" name="addThisEvent" value="Add Event">
 					</form> 
 				</td>
+				</c:if>
 			</tr>
 		</c:forEach>
 	</table>

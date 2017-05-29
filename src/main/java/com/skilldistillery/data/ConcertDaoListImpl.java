@@ -102,15 +102,36 @@ public class ConcertDaoListImpl implements ConcertDAO {
 
 
 	@Override
-	public void addConcertToUserList(Concert concert) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public List<Concert> getUserConcertList(int id) {
+	public User addConcertToUserList(Concert concert, User u) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+	@Override
+	public User getUserConcertList(User u) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public Concert getConcertById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public User login(String username, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
+
+
 
 }

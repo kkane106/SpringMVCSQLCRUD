@@ -234,3 +234,25 @@ INSERT INTO `concert_has_performer` (`concert_id`, `performer_id`) VALUES (3, 5)
 
 COMMIT;
 
+
+-- -----------------------------------------------------
+-- Data for table `user`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `concerteventdb`;
+INSERT INTO `user` (`id`, `username`, `password`, `first_name`, `last_name`) VALUES (1, 'ntran', 'pw123', 'Nancy', 'Tran');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `concert_has_user`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `concerteventdb`;
+INSERT INTO `concert_has_user` (`concert_id`, `user_id`) VALUES (1, 1);
+INSERT INTO `concert_has_user` (`concert_id`, `user_id`) VALUES (5, 1);
+INSERT INTO `concert_has_user` (`concert_id`, `user_id`) VALUES (8, 1);
+
+COMMIT;
+

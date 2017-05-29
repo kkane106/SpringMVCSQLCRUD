@@ -16,9 +16,18 @@
 <nav>
 <ul>
 	<li><a href="index.jsp">Home</a></li>
-	<li><a href="yourConcertsPage.jsp">Your shows</a></li>
-	<li><a href="ConcertsPage.jsp">All shows</a></li>
-	<li><a href="getAllShows.do">All shows</a></li>
+	<li><a href="getYourShows.do">Your shows</a></li>
+	<li><a href="getAllShows.do" method="get">All shows</a></li>
+	<c:if test="${sessionScope.user.username == null }">
+	<li><a href="loginForm.do">Sign in</a></li>
+	</c:if>
+	<c:if test="${sessionScope.user.username != null }">
+	<li><a href="logout.do">Logout</a></li>
+	</c:if>
+	<li><form action="GetConcertData.do" method="get">
+			Look up artist: <input type="text" name="performer" /> <input
+				type="submit" name="LookUp" value="Search" />
+		</form></li>
 </ul>
 </nav>
 
@@ -34,11 +43,7 @@
 	<img src="${concert.imageUrl}" alt="performer photo" />
 	<br> Add this show to your concert list:
 	<form action="addConcertToList.do" method="post">
-		<input type="hidden" name="id" value="${concert.id}">
-		<input type="hidden" name="performer" value="${concert.performer}">
-		<input type="hidden" name="venue" value="${concert.venue}">
-		<input type="hidden" name="date" value="${concert.date}">
-		<input type="hidden" name="imageUrl" value="${concert.imageUrl}">
+		<input type="hidden" name="concertId" value="${concert.id}">
 		<input type="submit" name="addThisEvent" value="Add Event" />
 	</form>
 	<br>

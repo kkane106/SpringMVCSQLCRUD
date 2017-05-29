@@ -20,19 +20,25 @@
 <nav>
 <ul>
 	<li><a href="index.jsp">Home</a></li>
-	<li><a href="yourConcertsPage.jsp">Your shows</a></li>
-		<li><a href="getAllShows.do">All shows</a></li>
-		<li><form action="GetConcertData.do" method="get">
+	<li><a href="getYourShows.do">Your shows</a></li>
+	<li><a href="getAllShows.do" method="get">All shows</a></li>
+	<c:if test="${sessionScope.user.username == null }">
+	<li><a href="loginForm.do">Sign in</a></li>
+	</c:if>
+	<c:if test="${sessionScope.user.username != null }">
+	<li><a href="logout.do">Logout</a></li>
+	</c:if>
+	<li><form action="GetConcertData.do" method="get">
 			Look up artist: <input type="text" name="performer" /> <input
 				type="submit" name="LookUp" value="Search" />
 		</form></li>
 </ul>
 </nav>
 
-<%-- <c:if test="${sessionScope.user} != null"> --%>
-<h1>Welcome, ${sessionScope.user.fname} ${sessionScope.user.lname}</h1>
-<%-- </c:if> --%>
-
+<%-- <c:if test="${sessionScope.user.username} != null"> 
+ --%><h1>Welcome, ${sessionScope.user.fname} ${sessionScope.user.lname}</h1>
+<%--  </c:if>
+ --%>
 <%-- <c:if test="${sessionScope.concertList}==null"> --%>
 <%-- <h4>You do not have any saved concerts!</h4>
 </c:if> --%>
@@ -60,11 +66,12 @@
 
 	<h3>Remove a show</h3>
 	<form action="removeConcert.do" method="post">
-		<select name="performer">
+		<select name="concertId">
 			<c:forEach var="c" items="${sessionScope.concertList}">
-				<option>${c.performer}</option>
+				<option value="${c.id}">${c.performer}</option>
 			</c:forEach>
-		</select> <input type="submit" value="submit" />
+		</select> 
+		<input type="submit" value="submit" />
 	</form>
 <%-- 	</c:if> --%>
 	<br>

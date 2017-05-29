@@ -5,8 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class AuthenticationDaoDbImpl implements AuthenticationDAO {
 
@@ -14,7 +12,6 @@ public class AuthenticationDaoDbImpl implements AuthenticationDAO {
 	private String user = "concertgoer";
 	private String pw = "Chowchow21";
 	
-	private List<User> users = new ArrayList<>();
 	
 	@Override
 	public User createUser(User u) {
@@ -22,9 +19,9 @@ public class AuthenticationDaoDbImpl implements AuthenticationDAO {
 		Connection conn = DriverManager.getConnection(url, user, pw);
 		String createUserSql = "insert into user(username, password, first_name, last_name)"
 				+ " values (?, ?, ?, ?)";
-		String setIdSql = "set @user_id = last_insert_id()";
+//		String setIdSql = "set @user_id = last_insert_id()";
 		
-		conn.setAutoCommit(false);
+//		conn.setAutoCommit(false);
 		
 		PreparedStatement stmt = conn.prepareStatement(createUserSql);
 		stmt.setString(1, u.getUsername());
@@ -33,10 +30,11 @@ public class AuthenticationDaoDbImpl implements AuthenticationDAO {
 		stmt.setString(4, u.getLname());
 		stmt.executeUpdate();
 		
-		conn.prepareStatement(setIdSql).executeUpdate();
+//		conn.prepareStatement(setIdSql).executeUpdate();
 		
-		conn.commit();
+//		conn.commit();
 		System.out.println("success: user created!");
+		System.out.println("userid: " + u.getId());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

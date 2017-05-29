@@ -14,7 +14,6 @@ public class ConcertDaoDbImpl implements ConcertDAO {
 	private String user = "concertgoer";
 	private String pw = "Chowchow21";
 
-	private List<Concert> userConcertList = new ArrayList<>();
 
 	public ConcertDaoDbImpl() {
 		try {
@@ -22,6 +21,39 @@ public class ConcertDaoDbImpl implements ConcertDAO {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Override
+	public User login(String username, String password) {
+		User u = new User();
+		try {
+			Connection conn = DriverManager.getConnection(url, user, pw);
+			String sql = "select password, first_name, last_name, id from user where username= ?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, username);
+			ResultSet rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				if(rs.getString(1).equals(password)){
+					u.setPassword(rs.getString(1));
+					u.setUsername(username);
+					u.setFname(rs.getString(2));
+					u.setLname(rs.getString(3));
+					u.setId(rs.getInt(4));
+					u = getUserConcertList(u);
+					return u;
+				}
+				else{
+					return null;
+				}
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+		
 	}
 
 	@Override
@@ -56,33 +88,76 @@ public class ConcertDaoDbImpl implements ConcertDAO {
 
 		return concert;
 	}
-
+	
 	@Override
-	public void addConcertToUserList(Concert concert) {
+	public Concert getConcertById(int id) {
+		Concert concert = null;
+		List<Concert> concerts = new ArrayList<>();
+		
 		try {
 			Connection conn = DriverManager.getConnection(url, user, pw);
 			String sql = "select c.id, p.name, v.name, c.date, p.photo_url"
 					+ " from concert c join concert_has_performer cp on c.id = cp.concert_id"
-				    + " join performer p on cp.performer_id = p.id"
-				    + " join venue v on c.venue_id = v.id"
-				    + " join concert_has_user cu on cu.concert_id = c.id"
-				    + " join user i on cu.user_id = i.id"
+					+ " join performer p on cp.performer_id = p.id" + " join venue v on c.venue_id = v.id"
 					+ " where c.id = ?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
-			pstmt.setInt(1,concert.getId());
+			
 			while (rs.next()) {
 				concert = new Concert(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
-				userConcertList.add(concert);
+				concerts.add(concert);
 			}
 			rs.close();
 			pstmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		return concert;
 	}
+	
+
 	@Override
-	public List<Concert> getUserConcertList(int userId) {
+	public User addConcertToUserList(Concert concert, User u) {
+		try {
+			Connection conn = DriverManager.getConnection(url, user, pw);
+			String sql = "insert into concert_has_user(concert_id,user_id) values (?,?)";
+			System.out.println("concert id: " + concert.getId());
+			System.out.println("user id: " + u.getId());
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1,concert.getId());
+			stmt.setInt(2,u.getId());
+			stmt.executeUpdate();
+			u.addConcert(concert);
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return u;
+	}
+	
+	@Override
+	public User removeConcertFromUserList(Concert concert, User u) {
+		try {
+			Connection conn = DriverManager.getConnection(url, user, pw);
+			String sql = "delete from concert_has_user where concert_id = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1,concert.getId());
+			stmt.executeUpdate();
+			u.removeConcert(concert);
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return u;
+	}
+	
+	@Override
+	public User getUserConcertList(User u) {
+		List<Concert> userConcertList = new ArrayList<>();
+		System.out.println("in get user concerts");
+		
 		try {
 			Connection conn = DriverManager.getConnection(url, user, pw);
 			String sql = "select c.id, p.name, v.name, c.date, p.photo_url"
@@ -94,11 +169,12 @@ public class ConcertDaoDbImpl implements ConcertDAO {
 					+ " where i.id = ?"
 					+ " order by c.id asc";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, u.getId());
 			ResultSet rs = pstmt.executeQuery();
-			pstmt.setInt(1, userId);
+			
 			while (rs.next()) {
 				Concert concert = new Concert(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
-//				userConcertList.add(concert);
+				userConcertList.add(concert);
 				System.out.println("in get user concert list: " + concert);
 			}
 			rs.close();
@@ -106,7 +182,8 @@ public class ConcertDaoDbImpl implements ConcertDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return userConcertList;
+		u.setConcertList(userConcertList);
+		return u;
 	}
 
 	@Override
@@ -136,13 +213,11 @@ public class ConcertDaoDbImpl implements ConcertDAO {
 
 	@Override
 	public void persistConcertList(List<Concert> userConcertList) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void addConcertToList(Concert concert) {
-		int newId = 0;
 		try {
 			Connection conn = DriverManager.getConnection(url, user, pw);
 			
@@ -158,7 +233,7 @@ public class ConcertDaoDbImpl implements ConcertDAO {
 			stmt.setString(1,concert.getPerformer());
 			stmt.executeUpdate();
 			
-			conn.prepareStatement(setIdSql).executeQuery();
+			conn.prepareStatement(setIdSql).executeUpdate();
 			
 			PreparedStatement stmt2 = conn.prepareStatement(insertConcertSql);
 			stmt2.setInt(1, 2);

@@ -24,21 +24,22 @@ nav ul {
 
 nav li {
 	float: left;
-	padding: 18px 20px;
 }
 
 nav ul li:last-child {
 	float: right;
+	padding: 18px 20px;
 }
 
-nav li a {
+nav a {
 	display: block;
+	padding: 18px 20px;
 	color: white;
 	text-align: center;
 	text-decoration: none;
 }
 
-nav ul li:hover {
+nav a:hover {
 	background-color: rgb(123, 209, 193);
 }
 
@@ -66,4 +67,32 @@ table img {
 	display: block;
 	margin: auto;
 	width: 40%;
+}
+
+#parent {
+	max-width: 70%;
+	margin: auto;
+}
+#left {
+	float:left;
+	width: 30%;
+}
+#middle {
+	float:left;
+	width: 30%;
+}
+#right {
+	float:left;
+	width: 30%;
+}
+
+.button {
+    background-color: #4CAF50; 
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
 }
