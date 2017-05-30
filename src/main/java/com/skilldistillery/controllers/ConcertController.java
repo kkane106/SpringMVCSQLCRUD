@@ -28,38 +28,39 @@ public class ConcertController {
 	@ModelAttribute("user")
 	public User newUser() {
 		return new User();
-//		return dao.login("ntran", "pw123");
+		// return dao.login("ntran", "pw123");
 	}
 
-//	@ModelAttribute("concertList")
-//	public List<Concert> initSessionObject() {
-//		List<Concert> userConcertList = new ArrayList<>();
-//		return userConcertList;
-//	}
-//	@ModelAttribute("user")
-	@RequestMapping(path="login.do", method=RequestMethod.POST)
-	public ModelAndView login(@ModelAttribute("user") User user,
-							  @RequestParam("username") String username,
-							  @RequestParam("password") String password) {
+	// @ModelAttribute("concertList")
+	// public List<Concert> initSessionObject() {
+	// List<Concert> userConcertList = new ArrayList<>();
+	// return userConcertList;
+	// }
+	// @ModelAttribute("user")
+	@RequestMapping(path = "login.do", method = RequestMethod.POST)
+	public ModelAndView login(@ModelAttribute("user") User user, @RequestParam("username") String username,
+			@RequestParam("password") String password) {
 		ModelAndView mv = new ModelAndView();
 		user = dao.login(username, password);
 		if (user == null) {
 			mv.setViewName("signin.jsp");
-		}
-		else {
+		} else {
 			mv.setViewName("yourConcertsPage.jsp");
 			mv.addObject(user);
 			mv.addObject("concertList", user.getConcertList());
 		}
 		return mv;
 	}
-	@RequestMapping(path="loginForm.do", method=RequestMethod.GET)
+	
+
+	@RequestMapping(path = "loginForm.do", method = RequestMethod.GET)
 	public ModelAndView loginForm() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("signin.jsp");
 		return mv;
 	}
-	@RequestMapping(path="logout.do", method=RequestMethod.GET)
+
+	@RequestMapping(path = "logout.do", method = RequestMethod.GET)
 	public ModelAndView logout() {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("user", new User());
@@ -68,16 +69,16 @@ public class ConcertController {
 	}
 
 	@ModelAttribute("userConcertList")
-	@RequestMapping(path = "createConcert.do", method=RequestMethod.POST)
+	@RequestMapping(path = "createConcert.do", method = RequestMethod.POST)
 	public ModelAndView addConcertToList(Concert c, @ModelAttribute("concertList") List<Concert> userConcertList,
 			@ModelAttribute("user") User user) {
 		System.out.println("in create concert");
 		System.out.println("concert input: " + c);
 		System.out.println("concert id: " + c.getId());
-		
+
 		ModelAndView mv = new ModelAndView();
-//		c = dao.getConcert(c);
-//		userConcertList.add(c);
+		// c = dao.getConcert(c);
+		// userConcertList.add(c);
 		dao.persistConcertList(userConcertList);
 		dao.addConcertToList(c);
 		dao.addConcertToUserList(c, user);
@@ -90,9 +91,6 @@ public class ConcertController {
 		mv.setViewName("yourConcertsPage.jsp");
 		return mv;
 	}
-	
-	
-
 
 	@RequestMapping(path = "getAllShows.do")
 	public String showAllConcerts(Model model, @ModelAttribute("user") User user) {
@@ -118,8 +116,8 @@ public class ConcertController {
 
 	@RequestMapping(path = "GetConcertData.do", params = "GetConcertList")
 	public ModelAndView showUserConcerts(
-//			@ModelAttribute("concertList") List<Concert> userConcertList,
-										 @ModelAttribute("user") User u) {
+			// @ModelAttribute("concertList") List<Concert> userConcertList,
+			@ModelAttribute("user") User u) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("yourConcertsPage.jsp");
 		mv.addObject("concertList", u.getConcertList());
@@ -129,43 +127,41 @@ public class ConcertController {
 	@ModelAttribute("userConcertList")
 	@RequestMapping(path = "addConcertToList.do", method = RequestMethod.POST)
 	public ModelAndView addConcertToUserList(
-//			@ModelAttribute("concertList") List<Concert> userConcertList, 
-			@RequestParam("concertId") int id,
-			@ModelAttribute("user") User user) {
+			// @ModelAttribute("concertList") List<Concert> userConcertList,
+			@RequestParam("concertId") int id, @ModelAttribute("user") User user) {
 		System.out.println(user);
 		ModelAndView mv = new ModelAndView();
 		Concert c = dao.getConcertById(id);
 		mv.setViewName("yourConcertsPage.jsp");
 		System.out.println("In add current concert");
 		System.out.println("Adding current concert: " + c);
-//		userConcertList.add(c);
+		// userConcertList.add(c);
 		System.out.println(user);
 		User u = dao.addConcertToUserList(c, user);
 		mv.addObject("user", u);
-//		dao.persistConcertList(userConcertList);
-		mv.addObject("concertList",u.getConcertList());
+		// dao.persistConcertList(userConcertList);
+		mv.addObject("concertList", u.getConcertList());
 		mv.addObject("concert", c);
 		return mv;
 	}
 
 	@RequestMapping(path = "removeConcert.do", method = RequestMethod.POST)
 	public ModelAndView removeConcert(
-//			@ModelAttribute("concertList") List<Concert> userConcertList,
-			@ModelAttribute("user") User user,
-			@RequestParam("concertId") int id
-//			@RequestParam("performer") String performer
-			) {
+			// @ModelAttribute("concertList") List<Concert> userConcertList,
+			@ModelAttribute("user") User user, @RequestParam("concertId") int id
+	// @RequestParam("performer") String performer
+	) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("yourConcertsPage.jsp");
 		System.out.println("in delete concert");
 		Concert c = dao.getConcertById(id);
 		User u = dao.removeConcertFromUserList(c, user);
-		mv.addObject("concertList",u.getConcertList());
+		mv.addObject("concertList", u.getConcertList());
 		mv.addObject("concert", c);
-//		Concert c = dao.getConcertByPerformer(performer);
-//		userConcertList.remove(c);
-//		dao.persistConcertList(userConcertList);
-//		mv.addObject("userConcertList", userConcertList);
+		// Concert c = dao.getConcertByPerformer(performer);
+		// userConcertList.remove(c);
+		// dao.persistConcertList(userConcertList);
+		// mv.addObject("userConcertList", userConcertList);
 		return mv;
 	}
 
@@ -176,19 +172,43 @@ public class ConcertController {
 		mv.setViewName("yourConcertsPage.jsp");
 		return mv;
 	}
-	
+
 	@RequestMapping(path = "getYourShows.do")
 	public ModelAndView getYourShows(@ModelAttribute("user") User user) {
 		ModelAndView mv = new ModelAndView();
 		System.out.println(user);
-		if(user.getUsername()==null){
-			
+		if (user.getUsername() == null) {
+
 			mv.setViewName("signup.jsp");
-		}
-		else{
+		} else {
 			mv.addObject("concertList", user.getConcertList());
 			mv.setViewName("yourConcertsPage.jsp");
 		}
+		return mv;
+	}
+	
+	@RequestMapping(path="updateConcert.do", method=RequestMethod.GET)
+	public ModelAndView updateConcert(@RequestParam("id") int id) {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("concert", dao.getConcertById(id));
+		mv.setViewName("editConcert.jsp");
+		return mv;
+	}
+	@RequestMapping(path="updateConcert.do", method=RequestMethod.POST)
+	public ModelAndView updateConcert(	// @ModelAttribute("concertList") List<Concert> userConcertList,
+			@RequestParam("concertId") int id,
+			@RequestParam("date") String date,
+			@ModelAttribute("user") User user) {
+		ModelAndView mv = new ModelAndView();
+		Concert c = dao.getConcertById(id);
+		mv.setViewName("yourConcertsPage.jsp");
+		System.out.println("In updating concert");
+		// userConcertList.add(c);
+		User u = dao.updateConcert(c, date, user);
+		mv.addObject("user", u);
+		// dao.persistConcertList(userConcertList);
+		mv.addObject("concertList", u.getConcertList());
+		mv.addObject("concert", c);
 		return mv;
 	}
 

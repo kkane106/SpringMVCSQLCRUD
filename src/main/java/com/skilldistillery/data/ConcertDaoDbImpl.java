@@ -40,7 +40,7 @@ public class ConcertDaoDbImpl implements ConcertDAO {
 					u.setFname(rs.getString(2));
 					u.setLname(rs.getString(3));
 					u.setId(rs.getInt(4));
-					u = getUserConcertList(u);
+					u.setConcertList(getUserConcertList(u));;
 					return u;
 				}
 				else{
@@ -53,7 +53,26 @@ public class ConcertDaoDbImpl implements ConcertDAO {
 			e.printStackTrace();
 		}
 		return null;
-		
+	}
+	
+	public User signup(User u) {
+		u = new User();
+		try {
+			Connection conn = DriverManager.getConnection(url, user, pw);
+			String sql = "insert into user(first_name, last_name, username, password)"
+					+ " values(?,?,?,?)";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, u.getFname());
+			pstmt.setString(2, u.getLname());
+			pstmt.setString(1, u.getUsername());
+			pstmt.setString(1, u.getPassword());
+			pstmt.executeUpdate();
+			
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return u;
 	}
 
 	@Override
@@ -154,7 +173,7 @@ public class ConcertDaoDbImpl implements ConcertDAO {
 	}
 	
 	@Override
-	public User getUserConcertList(User u) {
+	public List<Concert> getUserConcertList(User u) {
 		List<Concert> userConcertList = new ArrayList<>();
 		System.out.println("in get user concerts");
 		
@@ -183,7 +202,7 @@ public class ConcertDaoDbImpl implements ConcertDAO {
 			e.printStackTrace();
 		}
 		u.setConcertList(userConcertList);
-		return u;
+		return userConcertList;
 	}
 
 	@Override
@@ -249,5 +268,24 @@ public class ConcertDaoDbImpl implements ConcertDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	
+	
+	@Override 
+	public User updateConcert(Concert concert, String date, User u) {
+		try {
+			Connection conn = DriverManager.getConnection(url, user, pw);
+			String sql = "update concert set date = ? where id = ?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1,date);
+			stmt.setInt(2,concert.getId());
+			stmt.executeUpdate();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		u.setConcertList(getUserConcertList(u));
+		return u;
 	}
 }

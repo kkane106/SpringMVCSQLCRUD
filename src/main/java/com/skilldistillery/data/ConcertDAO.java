@@ -3,14 +3,21 @@ package com.skilldistillery.data;
 import java.util.List;
 
 public interface ConcertDAO {
+	//user functions
+	User login(String username, String password);
+	User signup(User user);
+	
+	//all concerts
 	public Concert getConcert(Concert concert);
 	public Concert getConcertByPerformer(String performer);
-	public User addConcertToUserList(Concert concert, User u);
 	List<Concert> getAllConcerts();
-	public void persistConcertList(List<Concert> userConcertList);
 	void addConcertToList(Concert concert);
-	public User getUserConcertList(User u);
+	
+	//user concerts
+	public User addConcertToUserList(Concert concert, User u);
+	public void persistConcertList(List<Concert> userConcertList);
+	public List<Concert> getUserConcertList(User u);
 	Concert getConcertById(int id);
-	User login(String username, String password);
-	User removeConcertFromUserList(Concert concert, User u);
+	public User removeConcertFromUserList(Concert concert, User u);
+	public User updateConcert(Concert concert, String date, User u);
 }

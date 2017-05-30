@@ -52,6 +52,7 @@
 			<th>Venue</th>
 			<th>Date</th>
 			<th>Band</th>
+			<th></th>
 		</tr>
 
 		<c:forEach var="c" items="${sessionScope.concertList}">
@@ -60,6 +61,10 @@
 				<td>${c.venue}</td>
 				<td>${c.date}</td>
 				<td><img src="${c.imageUrl}" alt="performer photo" /></td>
+				<td><form action="updateConcert.do" method="get">
+						<input type="hidden" name="id" value="${c.id}">
+						<input type="submit" name="updateEvent" value="Edit Event">
+					</form> </td>
 			</tr>
 		</c:forEach>
 	</table>
