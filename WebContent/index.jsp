@@ -9,6 +9,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="master.css">
+<link rel="stylesheet" href="index.css">
 <link href="https://fonts.googleapis.com/css?family=Karla|PT+Sans"
 	rel="stylesheet">
 <title>Your Concert Events</title>
@@ -42,7 +43,9 @@
 	<div id="left">
 		<h3>Look up an artist:</h3>
 	<form action="GetConcertData.do" method="get">
-		<br> <input type="text" name="performer" /> <input type="submit"
+		<br> 
+		<input type="text" name="performer" /> 
+		<input class="button" type="submit"
 			name="LookUp" value="Look up" />
 	</form>
 	</div>
@@ -50,12 +53,12 @@
 	<div id="middle">
 	<h3>Get all of your shows:</h3>
 	<form action="getYourShows.do" method="GET">
-		<input type="submit" name="GetConcertList" value="Submit" />
+		<input class="button" type="submit" name="GetConcertList" value="Submit" />
 	</form>
 
 	<h3>Get upcoming shows:</h3>
 	<form action="getAllShows.do" method="get">
-		<input type="submit" name="GetAll" value="Submit" />
+		<input class="button" type="submit" name="GetAll" value="Submit" />
 	</form>
 	</div>
 	
@@ -65,7 +68,8 @@
 		Artist: <input type="text" name="performer" /><br> 
 		Venue: <input type="text" name="venue" /><br> 
 		Date:  <input type="text" name="date" /><br> 
-		<input type="submit" name="AddYourEvent" value="Add Event" />
+		<br>
+		<input class="button" type="submit" name="AddYourEvent" value="Add Event" />
 	</form>
 	</div>
 	</div>

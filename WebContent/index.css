@@ -1,0 +1,27 @@
+@CHARSET "UTF-8";
+
+#parent {
+	border: 4px;
+}
+
+h3 {
+	color: rgb(214, 44, 106);
+	font-size: 24px;
+	font-weight: bold;
+}
+
+.button {
+	 background-color: rgb(167, 210, 226); 
+    border: none;
+    color: white;
+    padding: 10px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.button:hover {
+    background-color: rgb(143, 232, 223);
+    color: white;
+}
