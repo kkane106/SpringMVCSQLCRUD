@@ -15,17 +15,8 @@
 </head>
 <body>
 
-<nav>
-<ul>
-	<li><a href="index.jsp">Home</a></li>
-	<li><a href="getYourShows.do">Your shows</a></li>
-	<li><a href="getAllShows.do" method="get">All shows</a></li>
-	<li><form action="GetConcertData.do" method="get">
-			Look up artist: <input type="text" name="performer" /> <input
-				type="submit" name="LookUp" value="Search" />
-		</form></li>
-</ul>
-</nav>
+<!-- This will dynamically include a reusable partial -->
+<jsp:include page="partials/_appNav.jsp" />
 
 	<form:form action="createUser.do" method="POST" modelAttribute="user">
 
